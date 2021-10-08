@@ -1,19 +1,20 @@
 <template>
-  <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <div id="app" class="flex justify-center text-center h-full mt-10">
+    <FlipCard>
+      <template v-slot:front> <front-side /> </template>
+      <template v-slot:back> <back-side /> </template>
+    </FlipCard>
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
-
+import FlipCard from "./components/FlipCard.vue";
+import FrontSide from "./components/FrontSide.vue";
+import BackSide from "./components/BackSide.vue";
 export default {
-  name: 'App',
-  components: {
-    HelloWorld
-  }
-}
+  name: "App",
+  components: { FlipCard, FrontSide, BackSide },
+};
 </script>
 
 <style>
