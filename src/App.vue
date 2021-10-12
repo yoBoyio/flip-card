@@ -1,6 +1,6 @@
 <template>
-  <div id="app" class="flex justify-center text-center h-full mt-10">
-    <FlipCard>
+  <div id="app" class="flex flex-col justify-center text-center h-full mt-10">
+    <FlipCard class="my-10" v-for="card in 4" :key="card">
       <template v-slot:front> <front-side /> </template>
       <template v-slot:back> <back-side /> </template>
     </FlipCard>

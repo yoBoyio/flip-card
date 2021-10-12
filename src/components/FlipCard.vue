@@ -1,17 +1,17 @@
 <template>
   <div
     @click="flipped = !flipped"
-    v-bind:class="flipped ? 'flip-container flipped' : 'flip-container'"
+    :class="flipped ? 'flip-container--active' : 'flip-container'"
   >
-    <div class="flipper w-96 h-auto">
+    <div class="flipper w-96 h-full my-auto">
       <div class="front bg-yellow-200 shadow-lg rounded-lg border">
         <h1 class="p-4 text-xl font-bold">Front side</h1>
-        <slot name="front"></slot>
+        <slot v-if="!flipped" name="front"></slot>
       </div>
       <div class="back bg-pink-200 shadow-lg rounded-lg border">
         <h1 class="p-4 text-xl font-bold">Back side</h1>
 
-        <slot name="back"></slot>
+        <slot v-if="flipped" name="back"></slot>
       </div>
     </div>
   </div>
@@ -83,16 +83,15 @@ i.backFlipBtn {
   -o-transform: rotateY(-180deg);
   -ms-transform: rotateY(-180deg);
   transform: rotateY(-180deg);
-  position: absolute;
 }
-.flip-container.flipped .back {
+.flip-container--active .back {
   -webkit-transform: rotateY(0deg);
   -moz-transform: rotateY(0deg);
   -o-transform: rotateY(0deg);
   -ms-transform: rotateY(0deg);
   transform: rotateY(0deg);
 }
-.flip-container.flipped .front {
+.flip-container--active .front {
   -webkit-transform: rotateY(180deg);
   -moz-transform: rotateY(180deg);
   -o-transform: rotateY(180deg);
