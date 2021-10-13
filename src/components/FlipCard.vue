@@ -1,19 +1,24 @@
 <template>
-  <div
-    @click="flipped = !flipped"
-    :class="flipped ? 'flip-container--active' : 'flip-container'"
-  >
-    <div class="flipper w-96 h-full my-auto">
-      <div class="front bg-yellow-200 shadow-lg rounded-lg border">
+  <div @click="flipped = !flipped">
+    <transition name="flip">
+      <div
+        key="ad"
+        v-if="!flipped"
+        class="w-96 h-full bg-yellow-200 shadow-lg rounded-lg border"
+      >
         <h1 class="p-4 text-xl font-bold">Front side</h1>
-        <slot v-if="!flipped" name="front"></slot>
+        <slot name="front"></slot>
       </div>
-      <div class="back bg-pink-200 shadow-lg rounded-lg border">
+      <div
+        key="as"
+        v-if="flipped"
+        class="h-full w-96 my-auto bg-pink-200 shadow-lg rounded-lg border"
+      >
         <h1 class="p-4 text-xl font-bold">Back side</h1>
 
-        <slot v-if="flipped" name="back"></slot>
+        <slot name="back"></slot>
       </div>
-    </div>
+    </transition>
   </div>
 </template>
 
@@ -29,76 +34,17 @@ export default {
 </script>
 
 <style type='text/css' scoped>
-i.frontFlipBtn,
-i.backFlipBtn {
-  position: absolute;
-  right: 20px;
-  top: 20px;
-  color: #ffffff;
+.flip-enter-active {
+  transition: all 0.4s ease;
 }
-i.backFlipBtn {
-  -webkit-transform: rotateY(-180deg);
-  -moz-transform: rotateY(-180deg);
-  -o-transform: rotateY(-180deg);
-  -ms-transform: rotateY(-180deg);
-  transform: rotateY(-180deg);
+
+.flip-leave-active {
+  display: none;
 }
-.flip-container {
-  -webkit-perspective: 1000;
-  -moz-perspective: 1000;
-  -o-perspective: 1000;
-  perspective: 1000;
-}
-.flip-container {
-  min-height: 120px;
-}
-.flipper {
-  -moz-transform: perspective(1000px);
-  -moz-transform-style: preserve-3d;
-  position: relative;
-}
-.front,
-.back {
-  -webkit-backface-visibility: hidden;
-  -moz-backface-visibility: hidden;
-  -o-backface-visibility: hidden;
-  backface-visibility: hidden;
-  -webkit-transition: 0.6s;
-  -webkit-transform-style: preserve-3d;
-  -moz-transition: 0.6s;
-  -moz-transform-style: preserve-3d;
-  -o-transition: 0.6s;
-  -o-transform-style: preserve-3d;
-  -ms-transition: 0.6s;
-  -ms-transform-style: preserve-3d;
-  transition: 0.6s;
-  transform-style: preserve-3d;
-  top: 0;
-  left: 0;
-  width: 100%;
-}
-.back {
-  -webkit-transform: rotateY(-180deg);
-  -moz-transform: rotateY(-180deg);
-  -o-transform: rotateY(-180deg);
-  -ms-transform: rotateY(-180deg);
-  transform: rotateY(-180deg);
-}
-.flip-container--active .back {
-  -webkit-transform: rotateY(0deg);
-  -moz-transform: rotateY(0deg);
-  -o-transform: rotateY(0deg);
-  -ms-transform: rotateY(0deg);
-  transform: rotateY(0deg);
-}
-.flip-container--active .front {
-  -webkit-transform: rotateY(180deg);
-  -moz-transform: rotateY(180deg);
-  -o-transform: rotateY(180deg);
-  -ms-transform: rotateY(180deg);
+
+.flip-enter,
+.flip-leave {
   transform: rotateY(180deg);
-}
-.front {
-  z-index: 2;
+  opacity: 0;
 }
 </style>
